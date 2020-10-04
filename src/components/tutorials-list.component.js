@@ -86,7 +86,7 @@ export default class TutorialsList extends Component {
 
   render() {
     const { searchTitle, tutorials, currentTutorial, currentIndex } = this.state;
-
+    console.log(tutorials)
     return (
       <div className="list row">
         <div className="col-md-8">
