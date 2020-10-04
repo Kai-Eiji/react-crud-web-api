@@ -2,7 +2,9 @@ import http from "../http-common";
 
 class TutorialDataService {
   getAll() {
-    return http.get("/tutorials");
+    var string_json = http.get("/tutorials");
+    var json_obj = JSON.parse(string_json);
+    return json_obj.body;
   }
 
   get(id) {
