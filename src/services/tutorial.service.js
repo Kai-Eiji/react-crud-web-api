@@ -1,10 +1,10 @@
 import http from "../http-common";
+import axios from "axios";
 
 class TutorialDataService {
   getAll() {
     var string_json = http.get("/tutorials");
-    var json_obj = JSON.parse(string_json);
-    return json_obj.body;
+    return string_json;
   }
 
   get(id) {

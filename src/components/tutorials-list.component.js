@@ -40,8 +40,9 @@ export default class TutorialsList extends Component {
   retrieveTutorials() {
     TutorialDataService.getAll()
       .then(response => {
+        console.log("response", response.data.body);
         this.setState({
-          tutorials: response.data
+          tutorials: JSON.parse(response.data.body)
         });
         console.log(response.data);
       })
