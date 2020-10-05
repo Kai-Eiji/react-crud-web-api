@@ -53,6 +53,7 @@ export default class Tutorial extends Component {
   getTutorial(id) {
     TutorialDataService.get(id)
       .then(response => {
+        console.log(response.data)
         this.setState({
           currentTutorial: response.data
         });

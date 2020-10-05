@@ -4,10 +4,17 @@ import axios from "axios";
 class TutorialDataService {
   getAll() {
     var string_json = http.get("/tutorials");
+    console.log("res list", string_json)
     return string_json;
   }
 
   get(id) {
+    var r = http.options(`/tutorials/${id}`);
+    
+    //r.header('Access-Control-Allow-Origin', '*');
+    console.log("res option", r)
+    var res = http.get(`/tutorials/${id}`);
+    console.log(res)
     return http.get(`/tutorials/${id}`);
   }
 
