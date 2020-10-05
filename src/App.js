@@ -81,6 +81,7 @@ class App extends Component {
     if(user){
       return (
         <div>
+          <AmplifySignOut />
           <div>
             <nav className="navbar navbar-expand navbar-dark bg-dark">
               <a href="/tutorials" className="navbar-brand">
