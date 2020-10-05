@@ -111,7 +111,6 @@ class App extends Component {
             <div className="container mt-3">
               <Switch>
                 <Route exact path={["/", "/tutorials", "/callback.com"]} component={TutorialsList} />
-                <Route path="/callback.com" component={TutorialsList} />
                 <Route exact path="/add" component={AddTutorial} />
                 <Route path="/tutorials/:id" component={Tutorial} />
               </Switch>
