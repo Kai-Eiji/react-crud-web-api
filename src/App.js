@@ -7,7 +7,7 @@ import AddTutorial from "./components/add-tutorial.component";
 import Tutorial from "./components/tutorial.component";
 import TutorialsList from "./components/tutorials-list.component";
 
-import Amplify, { Auth } from 'aws-amplify';
+import Amplify, { Auth, Hub } from 'aws-amplify';
 import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
 
 Amplify.configure({
@@ -40,7 +40,7 @@ Amplify.configure({
 
          // OPTIONAL - Hosted UI configuration
         oauth: {
-            domain: 'your_cognito_domain',
+            domain: 'tutorials.auth.us-east-2.amazoncognito.com', //your_cognito_domain 
             scope: ['phone', 'email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
             redirectSignIn: 'https://master.d3551xzr2tgm66.amplifyapp.com/tutorials/callback.com',
             redirectSignOut: 'https://master.d3551xzr2tgm66.amplifyapp.com/signout.com',
@@ -88,3 +88,5 @@ class App extends Component {
 }
 
 export default withAuthenticator(App);
+
+
