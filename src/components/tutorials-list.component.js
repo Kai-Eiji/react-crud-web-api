@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import TutorialDataService from "../services/tutorial.service";
 import { Link } from "react-router-dom";
+import Pagination from "@material-ui/lab/Pagination";
 
 export default class TutorialsList extends Component {
   constructor(props) {
@@ -11,13 +12,20 @@ export default class TutorialsList extends Component {
     this.setActiveTutorial = this.setActiveTutorial.bind(this);
     this.removeAllTutorials = this.removeAllTutorials.bind(this);
     this.searchTitle = this.searchTitle.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
+    this.handlePageSizeChange = this.handlePageSizeChange.bind(this);
 
     this.state = {
       tutorials: [],
       currentTutorial: null,
       currentIndex: -1,
-      searchTitle: ""
+      searchTitle: "",
+
+      page: 1,
+      count: 0,
+      pageSize: 3,
     };
+    this.pageSizes = [3, 6, 9];
   }
 
   componentDidMount() {
@@ -33,11 +41,15 @@ export default class TutorialsList extends Component {
   }
 
   retrieveTutorials() {
+    const { searchTitle, page, pageSize } = this.state;
+    const params = this.getRequestParams(searchTitle, page, pageSize);
+
     TutorialDataService.getAll()
       .then(response => {
         console.log("response", response.data.body);
         this.setState({
-          tutorials: JSON.parse(response.data.body)
+          tutorials: JSON.parse(response.data.body),
+          count: JSON.parse(response.data.pages),
         });
         console.log(response.data);
       })
@@ -45,6 +57,29 @@ export default class TutorialsList extends Component {
         console.log(e);
       });
   }
+
+  handlePageChange(event, value) {
+    this.setState(
+      {
+        page: value,
+      },
+      () => {
+        this.retrieveTutorials();
+      }
+    );
+  }
+
+  handlePageSizeChange(event) {
+    this.setState(
+      {
+        pageSize: event.target.value,
+        page: 1
+      },
+      () => {
+        this.retrieveTutorials();
+      }
+    );
+  } 
 
   refreshList() {
     this.retrieveTutorials();
@@ -85,8 +120,36 @@ export default class TutorialsList extends Component {
       });
   }
 
+  getRequestParams(searchTitle, page, pageSize) {
+    let params = {};
+
+    if (searchTitle) {
+      params["title"] = searchTitle;
+    }
+
+    if (page) {
+      params["page"] = page - 1;
+    }
+
+    if (pageSize) {
+      params["size"] = pageSize;
+    }
+
+    return params;
+  }
+
+
+
   render() {
-    const { searchTitle, tutorials, currentTutorial, currentIndex } = this.state;
+    const { 
+      searchTitle, 
+      tutorials, 
+      currentTutorial, 
+      currentIndex,
+      page,
+      count,
+      pageSize,
+    } = this.state;
     console.log(tutorials)
     return (
       <div className="list row">
@@ -103,7 +166,7 @@ export default class TutorialsList extends Component {
               <button
                 className="btn btn-outline-secondary"
                 type="button"
-                onClick={this.searchTitle}
+                onClick={this.retrieveTutorials}
               >
                 Search
               </button>
@@ -112,6 +175,28 @@ export default class TutorialsList extends Component {
         </div>
         <div className="col-md-6">
           <h4>Tutorials List</h4>
+
+          <div className="mt-3">
+            {"Items per Page: "}
+            <select onChange={this.handlePageSizeChange} value={pageSize}>
+              {this.pageSizes.map((size) => (
+                <option key={size} value={size}>
+                  {size}
+                </option>
+              ))}
+            </select>
+
+            <Pagination
+              className="my-3"
+              count={count}
+              page={page}
+              siblingCount={1}
+              boundaryCount={1}
+              variant="outlined"
+              shape="rounded"
+              onChange={this.handlePageChange}
+            />
+          </div>
 
           <ul className="list-group">
             {tutorials &&
