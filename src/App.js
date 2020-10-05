@@ -88,6 +88,7 @@ class App extends Component {
                 Kai App
               </a>
               <div className="navbar-nav mr-auto">
+
                 <li className="nav-item">
                   <Link to={"/tutorials"} className="nav-link">
                     Tutorials
@@ -99,11 +100,13 @@ class App extends Component {
                   </Link>
                 </li>
                 <span class="navbar-text">
-                  {user.username}
+                  User Name: {user.username}
                 </span>
 
                 <form class="form-inline">
-                  <button class="btn btn-sm btn-outline-secondary" type="button" onClick={() => Auth.signOut()}>Sign Out</button>
+                  <div className="ml-3">
+                    <button class="btn btn-sm btn-outline-secondary" type="button" onClick={() => Auth.signOut()}>Sign Out</button>
+                  </div>
                 </form>
 
               </div>
