@@ -85,7 +85,7 @@ class App extends Component {
             <AmplifySignOut />
             <nav className="navbar navbar-expand navbar-dark bg-dark">
               <a href="/tutorials" className="navbar-brand">
-                bezKoder
+                Kai App
               </a>
               <div className="navbar-nav mr-auto">
                 <li className="nav-item">
@@ -98,6 +98,9 @@ class App extends Component {
                     Add
                   </Link>
                 </li>
+                <span class="navbar-text">
+                  {user.usename}
+                </span>
               </div>
             </nav>
   
@@ -119,11 +122,11 @@ class App extends Component {
     else{
       return(
         <div>
-            <p>User: {user ? JSON.stringify(user.attributes) : 'None'}</p>
+            <p>Not signed in</p>
             {user ? (
               <button onClick={() => Auth.signOut()}>Sign Out</button>
             ) : (
-              <button onClick={() => Auth.federatedSignIn()}>Federated Sign In</button>
+              <button onClick={() => Auth.federatedSignIn()}>Sign In</button>
             )}
         </div>
       );
