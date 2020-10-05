@@ -99,8 +99,13 @@ class App extends Component {
                   </Link>
                 </li>
                 <span class="navbar-text">
-                  {user.usename}
+                  {user.username}
                 </span>
+
+                <form class="form-inline">
+                  <button class="btn btn-sm btn-outline-secondary" type="button" onClick={() => Auth.signOut()}>Sign Out</button>
+                </form>
+
               </div>
             </nav>
   
