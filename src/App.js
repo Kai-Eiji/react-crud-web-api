@@ -81,7 +81,7 @@ class App extends Component {
     if(user){
       return (
         <div>
-          <AmplifySignOut />
+          
           <div>
             <nav className="navbar navbar-expand navbar-dark bg-dark">
               <a href="/tutorials" className="navbar-brand">
@@ -102,7 +102,7 @@ class App extends Component {
                 
                 <form class="form-inline">
                   <div className="ml-3">
-                    <button class="btn btn-sm btn-outline-secondary" type="button" onClick={() => Auth.signOut()}>Sign Out</button>
+                    <AmplifySignOut />
                   </div>
                 </form>
 
