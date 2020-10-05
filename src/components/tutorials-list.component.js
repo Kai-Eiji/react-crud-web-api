@@ -44,7 +44,7 @@ export default class TutorialsList extends Component {
     const { searchTitle, page, pageSize } = this.state;
     const params = this.getRequestParams(searchTitle, page, pageSize);
 
-    TutorialDataService.getAll()
+    TutorialDataService.getAll(params)
       .then(response => {
         console.log("response", response.data.body);
         this.setState({
