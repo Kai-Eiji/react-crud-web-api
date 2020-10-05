@@ -82,7 +82,6 @@ class App extends Component {
       return (
         <div>
           <div>
-            <AmplifySignOut />
             <nav className="navbar navbar-expand navbar-dark bg-dark">
               <a href="/tutorials" className="navbar-brand">
                 Kai App
@@ -99,10 +98,7 @@ class App extends Component {
                     Add
                   </Link>
                 </li>
-                <span class="navbar-text">
-                  User Name: {user.username}
-                </span>
-
+                
                 <form class="form-inline">
                   <div className="ml-3">
                     <button class="btn btn-sm btn-outline-secondary" type="button" onClick={() => Auth.signOut()}>Sign Out</button>
@@ -115,6 +111,7 @@ class App extends Component {
             <div className="container mt-3">
               <Switch>
                 <Route exact path={["/", "/tutorials", "/callback.com"]} component={TutorialsList} />
+                <Route path="/callback.com" component={TutorialsList} />
                 <Route exact path="/add" component={AddTutorial} />
                 <Route path="/tutorials/:id" component={Tutorial} />
               </Switch>
