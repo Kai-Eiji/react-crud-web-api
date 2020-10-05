@@ -30,7 +30,7 @@ Amplify.configure({
         userPoolWebClientId: '69a6cj7k94bqa4r3kr4njmj4q6',
 
         // OPTIONAL - Enforce user authentication prior to accessing AWS resources or not
-        mandatorySignIn: false,
+        mandatorySignIn: true,
 
         // OPTIONAL - customized storage object
         //storage: MyStorage,
@@ -52,41 +52,77 @@ Amplify.configure({
 const currentConfig = Auth.configure();
 
 class App extends Component {
+
+  state = { user: null, customState: null };
+
+  componentDidMount() {
+    Hub.listen("auth", ({ payload: { event, data } }) => {
+      switch (event) {
+        case "signIn":
+          this.setState({ user: data });
+          break;
+        case "signOut":
+          this.setState({ user: null });
+          break;
+        case "customOAuthState":
+          this.setState({ customState: data });
+      }
+    });
+
+    Auth.currentAuthenticatedUser()
+      .then(user => this.setState({ user }))
+      .catch(() => console.log("Not signed in"));
+  }
+
+
   render() {
-    
+    const { user } = this.state;
     return (
       <div>
-        <AmplifySignOut />
-        <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <a href="/tutorials" className="navbar-brand">
-            bezKoder
-          </a>
-          <div className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <Link to={"/tutorials"} className="nav-link">
-                Tutorials
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to={"/add"} className="nav-link">
-                Add
-              </Link>
-            </li>
-          </div>
-        </nav>
+        <div>
+          <AmplifySignOut />
+          <nav className="navbar navbar-expand navbar-dark bg-dark">
+            <a href="/tutorials" className="navbar-brand">
+              bezKoder
+            </a>
+            <div className="navbar-nav mr-auto">
+              <li className="nav-item">
+                <Link to={"/tutorials"} className="nav-link">
+                  Tutorials
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to={"/add"} className="nav-link">
+                  Add
+                </Link>
+              </li>
+            </div>
+          </nav>
 
-        <div className="container mt-3">
-          <Switch>
-            <Route exact path={["/", "/tutorials"]} component={TutorialsList} />
-            <Route exact path="/add" component={AddTutorial} />
-            <Route path="/tutorials/:id" component={Tutorial} />
-          </Switch>
+          <div className="container mt-3">
+            <Switch>
+              <Route exact path={["/", "/tutorials"]} component={TutorialsList} />
+              <Route exact path="/add" component={AddTutorial} />
+              <Route path="/tutorials/:id" component={Tutorial} />
+            </Switch>
+          </div>
+        </div>
+
+        <div>
+          <p>User: {user ? JSON.stringify(user.attributes) : 'None'}</p>
+          {user ? (
+            <button onClick={() => Auth.signOut()}>Sign Out</button>
+          ) : (
+            <button onClick={() => Auth.federatedSignIn()}>Federated Sign In</button>
+          )}
         </div>
       </div>
+
+
     );
   }
 }
 
-export default withAuthenticator(App);
-
+//export default withAuthenticator(App);
+export default App;
 
