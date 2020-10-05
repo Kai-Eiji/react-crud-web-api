@@ -13,12 +13,7 @@ export default class TutorialsList extends Component {
     this.searchTitle = this.searchTitle.bind(this);
 
     this.state = {
-      tutorials: [{
-        "published": true,
-        "description": "My Tutorial 1",
-        "id": "0e136145f891dffc6a01548749f6e4f0",
-        "title": "Tutorial 1"
-    }],
+      tutorials: [],
       currentTutorial: null,
       currentIndex: -1,
       searchTitle: ""
