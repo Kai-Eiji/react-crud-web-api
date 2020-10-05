@@ -2,7 +2,7 @@ import http from "../http-common";
 import axios from "axios";
 
 class TutorialDataService {
-  getAll() {
+  getAll(params) {
     var string_json = http.get("/tutorials", {params});
     console.log("res list", string_json)
     return string_json;
