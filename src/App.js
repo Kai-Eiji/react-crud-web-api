@@ -42,8 +42,8 @@ Amplify.configure({
         oauth: {
             domain: 'tutorials.auth.us-east-2.amazoncognito.com', //your_cognito_domain 
             scope: ['phone', 'email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
-            redirectSignIn: 'https://master.d3551xzr2tgm66.amplifyapp.com/tutorials/callback.com',
-            redirectSignOut: 'https://master.d3551xzr2tgm66.amplifyapp.com/signout.com',
+            redirectSignIn: 'https://master.kaiapp.net/callback.com', //'https://master.d3551xzr2tgm66.amplifyapp.com/tutorials/callback.com',
+            redirectSignOut: 'https://master.kaiapp.net/signout.com',//'https://master.d3551xzr2tgm66.amplifyapp.com/signout.com',
             responseType: 'code' // or 'token', note that REFRESH token will only be generated when the responseType is code
         }
     }
