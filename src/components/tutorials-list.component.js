@@ -21,7 +21,7 @@ export default class TutorialsList extends Component {
       currentIndex: -1,
       searchTitle: "",
 
-      page: 1,
+      page: 3,
       count: 0,
       pageSize: 3,
     };
@@ -47,6 +47,8 @@ export default class TutorialsList extends Component {
     TutorialDataService.getAll(params)
       .then(response => {
         console.log("response", response.data.body);
+        console.log("totalItem", response.data.totalItem);
+        console.log("totalItem type", typeof(response.data.totalItem));
         this.setState({
           tutorials: JSON.parse(response.data.body),
           //count: JSON.parse(response.data.pages),
