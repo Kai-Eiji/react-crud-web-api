@@ -49,7 +49,7 @@ export default class TutorialsList extends Component {
         console.log("response", response.data.body);
         this.setState({
           tutorials: JSON.parse(response.data.body),
-          count: JSON.parse(response.data.pages),
+          //count: JSON.parse(response.data.pages),
         });
         console.log(response.data);
       })
