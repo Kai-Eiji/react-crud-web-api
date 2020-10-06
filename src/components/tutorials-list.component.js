@@ -64,19 +64,21 @@ export default class TutorialsList extends Component {
         var totalItem = response.data.totalItem //tutorials recived from pagenation function
 
         var totalNum = tutorials.length;
-        var totalPages = totalNum / pageSize + 1;
+        var totalPages = Math.floor(totalNum / pageSize) + 1;
         var currPage = this.state.page;
 
         console.log("total num", totalNum);
         console.log("total pages", totalPages);
+        console.log("curr page", currPage);
 
         var lookUp;
         if(response.data.totalItem.length > 0){
-          console.log("page func succeed");
-          lookUp = totalItem.slice(currPage, currPage+pageSize);
+          console.log("page func");
+          lookUp = totalItem.slice(currPage*pageSize, currPage*pageSize+pageSize);
         }
         else{
-          lookUp = tutorials.slice(currPage, currPage+pageSize);
+          console.log("original");
+          lookUp = tutorials.slice(currPage*pageSize, currPage*pageSize+pageSize);
         }
 
         this.setState({
