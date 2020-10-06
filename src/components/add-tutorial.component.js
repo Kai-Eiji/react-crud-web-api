@@ -32,12 +32,19 @@ export default class AddTutorial extends Component {
   }
 
   saveTutorial() {
-    var data = {
-      title: this.state.title,
-      description: this.state.description
-    };
+    // var data = {
+    //   title: this.state.title,
+    //   description: this.state.description
+    // };
 
-    TutorialDataService.create(data)
+    for(var i = 0; i < 3; i++){
+      var str = i.toString(i)
+      var data = {
+        title: this.state.title.concat(str),
+        description: this.state.description.concat(str)
+      };
+
+      TutorialDataService.create(data)
       .then(response => {
         this.setState({
           id: response.data.id,
@@ -52,6 +59,23 @@ export default class AddTutorial extends Component {
       .catch(e => {
         console.log(e);
       });
+    }
+
+    // TutorialDataService.create(data)
+    //   .then(response => {
+    //     this.setState({
+    //       id: response.data.id,
+    //       title: response.data.title,
+    //       description: response.data.description,
+    //       published: response.data.published,
+
+    //       submitted: true
+    //     });
+    //     console.log(response.data);
+    //   })
+    //   .catch(e => {
+    //     console.log(e);
+    //   });
   }
 
   newTutorial() {
