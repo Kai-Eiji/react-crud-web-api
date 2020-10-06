@@ -38,7 +38,7 @@ export default class AddTutorial extends Component {
     // };
 
     for(var i = 0; i < 3; i++){
-      var str = i.toString(i)
+      var str = i.toString();
       var data = {
         title: this.state.title.concat(str),
         description: this.state.description.concat(str)
