@@ -65,11 +65,12 @@ export default class TutorialsList extends Component {
 
         var totalNum = tutorials.length;
         var totalPages = Math.floor(totalNum / pageSize) + 1;
-        var currPage = this.state.page;
+        var currPage = this.state.page -1;
 
         console.log("total num", totalNum);
         console.log("total pages", totalPages);
         console.log("curr page", currPage);
+        console.log("page size", pageSize);
 
         var lookUp;
         if(response.data.totalItem.length > 0){
