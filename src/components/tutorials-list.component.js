@@ -23,9 +23,9 @@ export default class TutorialsList extends Component {
 
       page: 1,
       count: 0,
-      pageSize: 3,
+      pageSize: 5,
     };
-    this.pageSizes = [3, 6, 9];
+    this.pageSizes = [5];
   }
 
   componentDidMount() {
