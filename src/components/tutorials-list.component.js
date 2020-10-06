@@ -21,7 +21,7 @@ export default class TutorialsList extends Component {
       currentIndex: -1,
       searchTitle: "",
 
-      page: 3,
+      page: 1,
       count: 0,
       pageSize: 3,
     };
@@ -40,6 +40,16 @@ export default class TutorialsList extends Component {
     });
   }
 
+  setPageLayout(totalItem, params){
+    var currPage = params["page"];
+    var pageSize = params["size"];
+    var totalNum = totalItem.length;
+    var totalPages = totalNum / pageSize + 1;
+
+    var lookUp = totalItem.slice(currPage, currPage+pageSize);
+
+  }
+
   retrieveTutorials() {
     const { searchTitle, page, pageSize } = this.state;
     const params = this.getRequestParams(searchTitle, page, pageSize);
@@ -49,9 +59,30 @@ export default class TutorialsList extends Component {
         console.log("response", response.data.body);
         console.log("totalItem", response.data.totalItem);
         console.log("totalItem type", typeof(response.data.totalItem));
+
+        tutorials = JSON.parse(response.data.body) //original
+        totalItem = response.data.totalItem //tutorials recived from pagenation function
+
+        var totalNum = tutorials.length;
+        var totalPages = totalNum / pageSize + 1;
+
+        console.log("total num", totalNum);
+        console.log("total pages", totalPages);
+
+        var lookUp;
+        if(response.data.totalItem.length > 0){
+          console.log("page func succeed");
+          lookUp = totalItem.slice(currPage, currPage+pageSize);
+        }
+        else{
+          lookUp = tutorials.slice(currPage, currPage+pageSize);
+        }
+
         this.setState({
-          tutorials: JSON.parse(response.data.body),
+          //tutorials: JSON.parse(response.data.body),
           //count: JSON.parse(response.data.pages),
+          tutorials: lookUp,
+          count: totalPages,
         });
         console.log(response.data);
       })
