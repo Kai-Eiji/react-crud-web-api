@@ -32,37 +32,20 @@ export default class AddTutorial extends Component {
   }
 
   saveTutorial() {
-    // var data = {
-    //   title: this.state.title,
-    //   description: this.state.description
-    // };
+    var data = {
+      title: this.state.title,
+      description: this.state.description
+    };
 
-    for(var i = 0; i < 100; i++){
-      var str = i.toString();
-      var data = {
-        title: this.state.title.concat(str),
-        description: this.state.description.concat(str),
-        index: i
-      };
+    // for(var i = 0; i < 100; i++){
+    //   var str = i.toString();
+    //   var data = {
+    //     title: this.state.title.concat(str),
+    //     description: this.state.description.concat(str),
+    //     index: i
+    //   };
 
-      TutorialDataService.create(data)
-      .then(response => {
-        this.setState({
-          id: response.data.id,
-          title: response.data.title,
-          description: response.data.description,
-          published: response.data.published,
-
-          submitted: true
-        });
-        console.log(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-    }
-
-    // TutorialDataService.create(data)
+    //   TutorialDataService.create(data)
     //   .then(response => {
     //     this.setState({
     //       id: response.data.id,
@@ -77,6 +60,23 @@ export default class AddTutorial extends Component {
     //   .catch(e => {
     //     console.log(e);
     //   });
+    // }
+
+    TutorialDataService.create(data)
+      .then(response => {
+        this.setState({
+          id: response.data.id,
+          title: response.data.title,
+          description: response.data.description,
+          published: response.data.published,
+
+          submitted: true
+        });
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
   }
 
   newTutorial() {

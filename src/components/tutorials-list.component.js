@@ -52,7 +52,8 @@ export default class TutorialsList extends Component {
 
   retrieveTutorials() {
     const { searchTitle, page, pageSize } = this.state;
-    const params = this.getRequestParams(searchTitle, page, pageSize);
+    //const params = this.getRequestParams(searchTitle, page, pageSize);
+    const params = {currPage: page}
 
     TutorialDataService.getAll(params)
       .then(response => {
@@ -61,9 +62,9 @@ export default class TutorialsList extends Component {
         console.log("totalItem type", typeof(response.data.totalItem));
 
         var tutorials = JSON.parse(response.data.body) //original
-        var totalItem = response.data.totalItem //tutorials recived from pagenation function
+        // var totalItem = response.data.totalItem //tutorials recived from pagenation function
 
-        var totalNum = tutorials.length;
+         var totalNum = tutorials.length;
         var totalPages = Math.floor(totalNum / pageSize) + 1;
         var currPage = this.state.page -1;
 
@@ -73,14 +74,14 @@ export default class TutorialsList extends Component {
         console.log("page size", pageSize);
 
         var lookUp;
-        if(response.data.totalItem.length > 0){
-          console.log("page func");
-          lookUp = totalItem.slice(currPage*pageSize, currPage*pageSize+pageSize);
-        }
-        else{
+        // if(response.data.totalItem.length > 0){
+        //   console.log("page func");
+        //   lookUp = totalItem.slice(currPage*pageSize, currPage*pageSize+pageSize);
+        // }
+        // else{
           console.log("original");
           lookUp = tutorials.slice(currPage*pageSize, currPage*pageSize+pageSize);
-        }
+        // }
 
         this.setState({
           //tutorials: JSON.parse(response.data.body),
