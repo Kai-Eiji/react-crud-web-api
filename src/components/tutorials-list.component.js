@@ -60,11 +60,12 @@ export default class TutorialsList extends Component {
         console.log("totalItem", response.data.totalItem);
         console.log("totalItem type", typeof(response.data.totalItem));
 
-        tutorials = JSON.parse(response.data.body) //original
-        totalItem = response.data.totalItem //tutorials recived from pagenation function
+        var tutorials = JSON.parse(response.data.body) //original
+        var totalItem = response.data.totalItem //tutorials recived from pagenation function
 
         var totalNum = tutorials.length;
         var totalPages = totalNum / pageSize + 1;
+        var currPage = this.state.page;
 
         console.log("total num", totalNum);
         console.log("total pages", totalPages);
